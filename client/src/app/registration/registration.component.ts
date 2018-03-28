@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import {DataService} from "../services/data.service";
+import {RestApiService} from "../services/rest-api.service";
 
 @Component({
   selector: 'app-registration',
@@ -6,8 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  name = '';
+  email = '';
+  password= '';
+  rePassword = '';
+  isSeller = false;
 
-  constructor() { }
+  btnDisabled = false;
+
+  constructor(
+    private router: Router,
+    private data: DataService,
+    private rest: RestApiService
+  ) {
+
+  }
 
   ngOnInit() {
   }
