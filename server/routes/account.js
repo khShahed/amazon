@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const config = require('../config');
 
+const checkJwt = require('../middlewares/check-jwt');
+
 router.post('/signup', (req, res, next) => {
    let user = new User();
    user.name = req.body.name;
@@ -37,7 +39,12 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
     User.findOne({email:req.body.email}, (err, user) => {
-        if (err) throw err;
+        if (err) {
+            return res.json({
+                success: false,
+                message: err
+            });
+        }
 
         if (!user){
             return res.json({
@@ -67,5 +74,78 @@ router.post('/login', (req, res, next) => {
         });
     });
 });
+
+router.route("/profile")
+    .get(checkJwt, (req, res, next) => {
+        User.findOne({_id: req.decoded.user._id}, (err, user) => {
+            if (err)
+            {
+                return res.json({
+                    success: false,
+                    message: "Unknown error"
+                })
+            }
+
+            return res.json({
+                success: true,
+                message: "successful",
+                user: user
+            });
+        })
+    })
+    .post(checkJwt, (req, res, next) => {
+        User.findOne({_id: req.decoded.user._id}, (err, user) => {
+            if (err)
+                return next(err);
+
+            if(req.body.name) user.name = req.body.name;
+            if(req.body.email) user.email = req.body.email;
+            user.isSeller = res.body.isSeller;
+
+            user.save();
+
+            return res.json({
+                success: true,
+                message: "successfully updated user profile."
+            });
+        })
+    });
+
+router.route("/address")
+    .get(checkJwt, (req, res, next) => {
+        User.findOne({_id: req.decoded.user._id}, (err, user) => {
+            if (err)
+            {
+                return res.json({
+                    success: false,
+                    message: "Unknown error"
+                })
+            }
+            return res.json({
+                success: true,
+                message: "successful",
+                address: user.address
+            });
+        })
+    })
+    .post(checkJwt, (req, res, next) => {
+        User.findOne({_id: req.decoded.user._id}, (err, user) => {
+            if (err)
+                return next(err);
+            if(req.body.addressLine1) user.address.addressLine1 = req.body.addressLine1;
+            if(req.body.addressLine2) user.address.addressLine2 = req.body.addressLine2;
+            if(req.body.city) user.address.city = req.body.city;
+            if(req.body.state) user.address.state = req.body.state;
+            if(req.body.country) user.address.country = req.body.country;
+            if(req.body.postCode) user.address.postCode = req.body.postCode;
+
+            user.save();
+
+            return res.json({
+                success: true,
+                message: "successfully updated user address."
+            });
+        })
+    });
 
 module.exports = router;

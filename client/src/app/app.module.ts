@@ -19,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GuestGuard } from './guards/guest.guard';
 import { UserGuard } from './guards/user.guard';
+import { SettingsComponent } from './settings/settings.component';
+import { SellerGuard } from './guards/seller.guard';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { UserGuard } from './guards/user.guard';
     MessageComponent,
     RegistrationComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { UserGuard } from './guards/user.guard';
       newestOnTop: false
     })
   ],
-  providers: [RestApiService, DataService, GuestGuard, UserGuard],
+  providers: [RestApiService, DataService, GuestGuard, UserGuard, SellerGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

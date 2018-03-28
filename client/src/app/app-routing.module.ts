@@ -6,6 +6,7 @@ import {LoginComponent} from "./login/login.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {GuestGuard} from "./guards/guest.guard";
 import {UserGuard} from "./guards/user.guard";
+import {SettingsComponent} from "./settings/settings.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'profile/settings',
+    component: SettingsComponent,
     canActivate: [UserGuard]
   },
   {
