@@ -17,13 +17,14 @@ export class AppComponent implements OnInit{
     private router: Router,
     private data: DataService
     ){
+    this.data.getProfile();
   }
   ngOnInit(){
     setTimeout(()=>{
-      this.toastr.success("Success message", "Success", {closeButton:true, progressBar:true});
-      this.toastr.error("Error message", "Error", {closeButton:true, progressBar:true});
-      this.toastr.info("Info message", "Info", {closeButton:true, progressBar:true});
-      this.toastr.warning("Warning message", "Warning", {closeButton:true, progressBar:true});
+      // this.toastr.success("Success message", "Success", {closeButton:true, progressBar:true});
+      // this.toastr.error("Error message", "Error", {closeButton:true, progressBar:true});
+      // this.toastr.info("Info message", "Info", {closeButton:true, progressBar:true});
+      // this.toastr.warning("Warning message", "Warning", {closeButton:true, progressBar:true});
     });
   }
   get token() {

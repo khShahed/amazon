@@ -1,32 +1,29 @@
 import { Injectable } from '@angular/core';
 import {NavigationStart, Router} from "@angular/router";
+import {RestApiService} from "./rest-api.service";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable()
 export class DataService{
-  user = {};
+  user: any;
   message = '';
   messageType = 'danger';
-  constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if(event instanceof NavigationStart){
-        this.message = '';
+
+  constructor(
+    private rest: RestApiService,
+    private toastr: ToastrService
+  ) {
+
+  }
+
+  async getProfile(){
+    try {
+      if (localStorage.getItem('token')){
+        const data = await this.rest.get('api/accounts/profile');
+        this.user = data['user'];
       }
-    });
+    } catch(error){
+      this.toastr.error(error, "Error");
+    }
   }
-
-  error(message){
-    this.messageType = 'danger';
-    this.message = message;
-  }
-
-  success(message){
-    this.messageType = 'success';
-    this.message = message;
-  }
-
-  warning(message){
-    this.messageType = 'warning';
-    this.message = message;
-  }
-
 }

@@ -38,7 +38,7 @@ export class RegistrationComponent implements OnInit {
     if(this.password.length <= 6 || this.name.length <4){
 
     }
-    const data = await this.rest.post('http://localhost:3000/api/accounts/signup',
+    const data = await this.rest.post('api/accounts/signup',
       {
         name: this.name,
         email: this.email,

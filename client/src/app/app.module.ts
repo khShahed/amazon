@@ -16,7 +16,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { GuestGuard } from './guards/guest.guard';
+import { UserGuard } from './guards/user.guard';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { AuthGuard } from './guards/auth.guard';
     HomeComponent,
     MessageComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { AuthGuard } from './guards/auth.guard';
       newestOnTop: false
     })
   ],
-  providers: [RestApiService, DataService, AuthGuard],
+  providers: [RestApiService, DataService, GuestGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
