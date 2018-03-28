@@ -3,8 +3,9 @@ import {NavigationStart, Router} from "@angular/router";
 
 @Injectable()
 export class DataService{
-  message = ''
-  messageType = 'danger'
+  user = {};
+  message = '';
+  messageType = 'danger';
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if(event instanceof NavigationStart){

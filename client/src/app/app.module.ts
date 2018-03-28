@@ -14,6 +14,9 @@ import { DataService } from './services/data.service';
 import { MessageComponent } from './message/message.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -21,10 +24,12 @@ import {ToastrModule} from "ngx-toastr";
     AppComponent,
     HomeComponent,
     MessageComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -37,7 +42,7 @@ import {ToastrModule} from "ngx-toastr";
       newestOnTop: false
     })
   ],
-  providers: [RestApiService, DataService],
+  providers: [RestApiService, DataService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

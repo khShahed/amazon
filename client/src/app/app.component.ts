@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
+import {DataService} from "./services/data.service";
 
 @Component({
   selector: 'app-root',
@@ -10,13 +12,19 @@ export class AppComponent implements OnInit{
   searchTerm = '';
   isCollapsed = true;
 
-  constructor(private toastr: ToastrService){
+  constructor(
+    private toastr: ToastrService,
+    private router: Router,
+    private data: DataService
+    ){
   }
   ngOnInit(){
-    this.toastr.success("Success message", "Success", {closeButton:true, progressBar:true});
-    this.toastr.error("Error message", "Error", {closeButton:true, progressBar:true});
-    this.toastr.info("Info message", "Info", {closeButton:true, progressBar:true});
-    this.toastr.warning("Warning message", "Warning", {closeButton:true, progressBar:true});
+    setTimeout(()=>{
+      this.toastr.success("Success message", "Success", {closeButton:true, progressBar:true});
+      this.toastr.error("Error message", "Error", {closeButton:true, progressBar:true});
+      this.toastr.info("Info message", "Info", {closeButton:true, progressBar:true});
+      this.toastr.warning("Warning message", "Warning", {closeButton:true, progressBar:true});
+    });
   }
   get token() {
     return localStorage.getItem('token');
@@ -31,7 +39,9 @@ export class AppComponent implements OnInit{
   }
 
   logout() {
-
+    this.data.user = {};
+    localStorage.clear();
+    this.router.navigate(['']);
   }
 
   search() {
