@@ -96,7 +96,7 @@ router.route("/profile")
     .post(checkJwt, (req, res, next) => {
         User.findOne({_id: req.decoded.user._id}, (err, user) => {
             if (err)
-                return next(err);
+                return next(err.message);
 
             if(req.body.name) user.name = req.body.name;
             // if(req.body.email) user.email = req.body.email;

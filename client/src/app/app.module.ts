@@ -22,6 +22,8 @@ import { GuestGuard } from './guards/guest.guard';
 import { UserGuard } from './guards/user.guard';
 import { SettingsComponent } from './settings/settings.component';
 import { SellerGuard } from './guards/seller.guard';
+import {LaddaModule} from "angular2-ladda";
+import { AddressComponent } from './address/address.component';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { SellerGuard } from './guards/seller.guard';
     RegistrationComponent,
     LoginComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { SellerGuard } from './guards/seller.guard';
     HttpClientModule,
 
     NgSpinKitModule,
+    LaddaModule,
     NgbModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,

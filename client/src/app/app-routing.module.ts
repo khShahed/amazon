@@ -7,6 +7,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {GuestGuard} from "./guards/guest.guard";
 import {UserGuard} from "./guards/user.guard";
 import {SettingsComponent} from "./settings/settings.component";
+import {AddressComponent} from "./address/address.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'profile/settings',
     component: SettingsComponent,
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'profile/address',
+    component: AddressComponent,
     canActivate: [UserGuard]
   },
   {

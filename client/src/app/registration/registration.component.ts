@@ -16,7 +16,7 @@ export class RegistrationComponent implements OnInit {
   rePassword = '';
   isSeller = false;
 
-  btnDisabled = false;
+  loading = true;
 
   constructor(
     private router: Router,

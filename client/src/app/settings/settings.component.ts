@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from "../services/data.service";
 import {RestApiService} from "../services/rest-api.service";
 import {ToastrService} from "ngx-toastr";
+import {NgSpinKitModule} from 'ng-spin-kit';
 
 @Component({
   selector: 'app-settings',
@@ -33,12 +34,14 @@ export class SettingsComponent implements OnInit {
   }
 
   async update(){
-    if (this.currentSettings['newPwd'] !== this.currentSettings['pwdConfirm']){
-      this.toastr.error('New password and Confirm password didn\'t matched.', 'Error');
+
+    if(this.currentSettings['name'] == this.data.user.name && !this.currentSettings['newPwd']){
+      this.toastr.warning("Nothing to save.", "Warning");
       return;
     }
-    if (this.currentSettings['newPwd'].length < 6){
-      this.toastr.error('Password should contains at least 6 character', 'Error');
+
+    if (this.currentSettings['newPwd'] !== this.currentSettings['pwdConfirm']){
+      this.toastr.error('New password and Confirm password didn\'t matched.', 'Error');
       return;
     }
 
@@ -47,6 +50,9 @@ export class SettingsComponent implements OnInit {
         name: this.currentSettings['name'],
         newPassword: this.currentSettings['newPwd'],
       });
+      data['success'] ?
+        (this.data.getProfile(), this.toastr.success(data['message'], 'Success'))
+        : this.toastr.error(data['message'], "Error");
     }
     catch (error){
       this.toastr.error(error, "Error");
