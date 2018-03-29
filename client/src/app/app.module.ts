@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
+import {NgSpinKitModule} from 'ng-spin-kit';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -39,6 +40,8 @@ import { SellerGuard } from './guards/seller.guard';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+
+    NgSpinKitModule,
     NgbModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,

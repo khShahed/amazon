@@ -35,8 +35,13 @@ export class RegistrationComponent implements OnInit {
       this.toastr.error("Password and Confirm password isn't matching", "Error")
       return;
     }
-    if(this.password.length <= 6 || this.name.length <4){
-
+    if(this.password.length < 6){
+      this.toastr.error("Password should contains at least 6 character", "Error")
+      return;
+    }
+    if(this.name.length == 0){
+      this.toastr.error("Name can't be empty", "Error")
+      return;
     }
     const data = await this.rest.post('api/accounts/signup',
       {

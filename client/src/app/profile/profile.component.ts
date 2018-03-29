@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from "../services/data.service";
+import {NgSpinKitModule} from 'ng-spin-kit';
 
 @Component({
   selector: 'app-profile',

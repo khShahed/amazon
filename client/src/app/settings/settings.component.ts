@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from "../services/data.service";
 import {RestApiService} from "../services/rest-api.service";
 import {ToastrService} from "ngx-toastr";
-import {settings} from "cluster";
 
 @Component({
   selector: 'app-settings',
@@ -37,6 +36,20 @@ export class SettingsComponent implements OnInit {
     if (this.currentSettings['newPwd'] !== this.currentSettings['pwdConfirm']){
       this.toastr.error('New password and Confirm password didn\'t matched.', 'Error');
       return;
+    }
+    if (this.currentSettings['newPwd'].length < 6){
+      this.toastr.error('Password should contains at least 6 character', 'Error');
+      return;
+    }
+
+    try{
+      const data = await this.rest.post('api/accounts/profile', {
+        name: this.currentSettings['name'],
+        newPassword: this.currentSettings['newPwd'],
+      });
+    }
+    catch (error){
+      this.toastr.error(error, "Error");
     }
   }
 }

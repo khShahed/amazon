@@ -99,9 +99,9 @@ router.route("/profile")
                 return next(err);
 
             if(req.body.name) user.name = req.body.name;
-            if(req.body.email) user.email = req.body.email;
-            user.isSeller = res.body.isSeller;
-
+            // if(req.body.email) user.email = req.body.email;
+            if(req.body.newPassword) user.password = req.body.newPassword;
+            // user.isSeller = res.body.isSeller;
             user.save();
 
             return res.json({
