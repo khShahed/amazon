@@ -4,10 +4,8 @@ const config = require('../config');
 
 module.exports = function (req, res, next) {
     let token = req.header('token');
-    console.log("token "+token)
     if (token != null){
         jwt.verify(token, config.secret, function (err, success) {
-            console.log(success);
             if(err){
                 return res.json({
                     success: false,

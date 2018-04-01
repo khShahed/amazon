@@ -15,7 +15,7 @@ mongoose.connect(config.database, (err) => {
         console.log("Successfully connected to database.");
     }
 });
-
+app.use(express.static('files'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));

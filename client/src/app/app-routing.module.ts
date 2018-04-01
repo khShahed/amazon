@@ -8,11 +8,19 @@ import {GuestGuard} from "./guards/guest.guard";
 import {UserGuard} from "./guards/user.guard";
 import {SettingsComponent} from "./settings/settings.component";
 import {AddressComponent} from "./address/address.component";
+import {CategoriesComponent} from "./categories/categories.component";
+import {AddProductComponent} from "./add-product/add-product.component";
+import {SellerGuard} from "./guards/seller.guard";
+import {MyProductsComponent} from "./my-products/my-products.component";
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'categories',
+    component: CategoriesComponent
   },
   {
     path: 'register',
@@ -37,6 +45,16 @@ const routes: Routes = [
   {
     path: 'profile/address',
     component: AddressComponent,
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'profile/addproduct',
+    component: AddProductComponent,
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'profile/myproducts',
+    component: MyProductsComponent,
     canActivate: [UserGuard]
   },
   {

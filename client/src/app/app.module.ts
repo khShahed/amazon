@@ -24,6 +24,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { SellerGuard } from './guards/seller.guard';
 import {LaddaModule} from "angular2-ladda";
 import { AddressComponent } from './address/address.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { MyProductsComponent } from './my-products/my-products.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { AddressComponent } from './address/address.component';
     LoginComponent,
     ProfileComponent,
     SettingsComponent,
-    AddressComponent
+    AddressComponent,
+    CategoriesComponent,
+    AddProductComponent,
+    MyProductsComponent
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,10 @@ export class SellerGuard implements CanActivate {
       this.router.navigate(['/']);
       return false;
     }
+
+    if (!this.data.user)
+      this.data.getProfile();
+
     if(!this.data.user.isSeller){
       this.toastr.warning("You can't access that link.", "Unauthorized");
       this.router.navigate(['/']);

@@ -2,17 +2,21 @@ const router = require('express').Router();
 const multer = require('multer');
 const Product = require('../models/product');
 const checkJWT = require('../middlewares/check-jwt');
+const path = require('path');
 
 const faker = require('faker');
 
-const upload = multer({
+const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, '../files/img/product/');
+        if (file)
+            callback(null, './files/img/product/');
     },
     filename: function (req, file, callback) {
-        callback(null, Date.now().toString() + file.originalname);
+        if (file)
+            callback(null, Date.now().toString() + path.extname(file.originalname));
     }
 });
+const upload = multer({storage: storage});
 
 router.route('/products')
     .get(checkJWT,  (req, res, next) => {
@@ -31,12 +35,15 @@ router.route('/products')
     })
     .post([checkJWT, upload.single('product_picture')], (req, res, next) => {
         let product = new Product();
-        product.owner = req.decoded._id;
+        product.owner = req.decoded.user._id;
+        console.log(req.decoded._id, req.decoded.name);
         product.category = req.body.categoryId;
         product.name = req.body.name;
         product.price = req.body.price;
         product.description = req.body.description;
-        product.image = req.protocol + "://" + req.host + "/" + req.file.path;
+        if (req.file)
+            product.image = req.protocol + "://" + req.hostname + ":" + req.socket.localPort + "/img/product/" + req.file.filename;
+
         product.save();
 
         res.json({
