@@ -12,6 +12,8 @@ import {CategoriesComponent} from "./categories/categories.component";
 import {AddProductComponent} from "./add-product/add-product.component";
 import {SellerGuard} from "./guards/seller.guard";
 import {MyProductsComponent} from "./my-products/my-products.component";
+import {CategoryComponent} from "./category/category.component";
+import {ProductComponent} from "./product/product.component";
 
 const routes: Routes = [
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent
+  },
+  {
+    path: 'categories/:id',
+    component: CategoryComponent
+  },
+  {
+    path: 'product/:id',
+    component: ProductComponent
   },
   {
     path: 'register',

@@ -30,12 +30,12 @@ router.get('/categories/:id', (req, res, next) => {
 
     async.parallel([
         function (callback) {
-            Product.count({categoryId: req.params.id}, (err, totalProductCount) => {
+            Product.count({category: req.params.id}, (err, totalProductCount) => {
                 callback(err, totalProductCount);
             });
         },
         function(callback){
-            Product.find({categoryId: req.params.id})
+            Product.find({category: req.params.id})
                 .skip(resultPerPage * page)
                 .limit(resultPerPage)
                 .populate('category')
@@ -51,9 +51,16 @@ router.get('/categories/:id', (req, res, next) => {
             });
         }
     ], function (err, results) {
+        if (err){
+            return res.json({
+                success: false,
+                message: err
+            });
+        }
         let totalProductCount = results[0];
         let products = results[1];
         let category = results[2];
+        console.log(category);
         res.json({
             success: true,
             message: 'category',
